@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: ButterBean TinyMCE Example
- * Plugin URI:  https://github.com/slaffik/butterbean-tinymce
+ * Plugin URI:  https://github.com/slaFFik/butterbean-tinymce
  * Description: Add new control for ButterBean - TinyMCE.
  * Version:     1.0.0
  * Author:      slaFFik
@@ -46,7 +46,7 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 			// Call the register function.
 			add_action( 'butterbean_register', array( $this, 'register' ), 10, 2 );
 			add_action( 'butterbean_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_filter( "butterbean_control_template", array( $this, 'get_template' ), 10, 2 );
+			add_filter( "butterbean_control_template", array( $this, 'get_control_template' ), 10, 2 );
 		}
 
 		/**
@@ -144,17 +144,25 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 
 		}
 
+		/**
+		 * Enqueue assets to make TinyMCE work.
+		 */
 		public function enqueue_scripts() {
 			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			// Enqueue the main plugin script.
 			wp_enqueue_script( 'butterbean-tinymce', $this->dir_uri . "js/butterbean-tinymce{$min}.js", array( 'butterbean' ), '', true );
-
-			// Enqueue the main plugin style.
-			//wp_enqueue_style( 'butterbean', $this->dir_uri . "css/butterbean-tinymce{$min}.css" );
 		}
 
-		public function get_template( $located, $slug ) {
+		/**
+		 * Register a new template file for a custom control.
+		 *
+		 * @param string $located Path to a template file.
+		 * @param string $slug Control type.
+		 *
+		 * @return string
+		 */
+		public function get_control_template( $located, $slug ) {
 			if ( $slug === $this->type && file_exists( $this->dir_path . 'tmpl/control-tinymce.php' ) ) {
 				return $this->dir_path . 'tmpl/control-tinymce.php';
 			}

@@ -29,6 +29,15 @@ class ButterBean_Control_Tinymce extends ButterBean_Control {
 		$this->json['value'] = $this->get_value();
 	}
 
+	/**
+	 * Gets the attributes for the control.
+	 * Sets the new id attribute, as it's required for TinyMCE to function properly.
+	 * Sets new class .tinymce for easier js initialization.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return array
+	 */
 	public function get_attr() {
 		$this->attr = parent::get_attr();
 
