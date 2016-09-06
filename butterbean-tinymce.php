@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: ButterBean TinyMCE Example
+ * Plugin Name: ButterBean TinyMCE Control
  * Plugin URI:  https://github.com/slaFFik/butterbean-tinymce
  * Description: Add new control for ButterBean - TinyMCE.
- * Version:     1.0.0
+ * Version:     0.1.1
  * Author:      slaFFik
  * Author URI:  https://ovirium.com
  *
@@ -16,28 +16,24 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 		/**
 		 * Directory path to the plugin folder.
 		 *
-		 * @var    string
+		 * @var string
 		 */
 		public $type = 'tinymce';
 		/**
 		 * Directory path to the plugin folder.
 		 *
-		 * @var    string
+		 * @var string
 		 */
 		public $dir_path = '';
 		/**
 		 * Directory URI to the plugin folder.
 		 *
-		 * @var    string
+		 * @var string
 		 */
 		public $dir_uri = '';
 
 		/**
 		 * Sets up initial actions.
-		 *
-		 * @since  1.0.0
-		 * @access private
-		 * @return void
 		 */
 		private function setup_actions() {
 			$this->dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
@@ -45,20 +41,14 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 
 			// Call the register function.
 			add_action( 'butterbean_register', array( $this, 'register' ), 10, 2 );
-			add_action( 'butterbean_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			add_filter( "butterbean_control_template", array( $this, 'get_control_template' ), 10, 2 );
 		}
 
 		/**
 		 * Registers managers, sections, controls, and settings.
 		 *
-		 * @since  1.0.0
-		 * @access public
-		 *
 		 * @param  ButterBean $butterbean Instance of the `ButterBean` object.
 		 * @param  string $post_type
-		 *
-		 * @return void
 		 */
 		public function register( $butterbean, $post_type ) {
 			if ( 'page' !== $post_type && 'post' !== $post_type ) {
@@ -145,16 +135,6 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 		}
 
 		/**
-		 * Enqueue assets to make TinyMCE work.
-		 */
-		public function enqueue_scripts() {
-			$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-			// Enqueue the main plugin script.
-			wp_enqueue_script( 'butterbean-tinymce', $this->dir_uri . "js/butterbean-tinymce{$min}.js", array( 'butterbean' ), '', true );
-		}
-
-		/**
 		 * Register a new template file for a custom control.
 		 *
 		 * @param string $located Path to a template file.
@@ -173,8 +153,6 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 		/**
 		 * Returns the instance.
 		 *
-		 * @since  1.0.0
-		 * @access public
 		 * @return ButterBean_TinyMCE_Example
 		 */
 		public static function get_instance() {
@@ -191,9 +169,6 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 
 		/**
 		 * Constructor method.
-		 *
-		 * @since  1.0.0
-		 * @access private
 		 */
 		private function __construct() {
 		}

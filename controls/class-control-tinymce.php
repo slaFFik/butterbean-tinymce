@@ -1,26 +1,27 @@
 <?php
 /**
  * TinyMCE control class.
- *
- * @since  1.0.0
- * @access public
  */
 class ButterBean_Control_Tinymce extends ButterBean_Control {
 
 	/**
 	 * The type of control.
 	 *
-	 * @since  1.0.0
-	 * @access public
 	 * @var    string
 	 */
 	public $type = 'tinymce';
 
 	/**
+	 * Enqueue scripts/styles for the control.
+	 */
+	public function enqueue() {
+		// Enqueue the main plugin script.
+		wp_enqueue_script( 'butterbean-tinymce', plugin_dir_url( __DIR__ ) . '/js/butterbean-tinymce.js', array( 'butterbean' ), '', true );
+	}
+
+	/**
 	 * Adds custom data to the json array. This data is passed to the Underscore template.
 	 *
-	 * @since  1.0.0
-	 * @access public
 	 * @return void
 	 */
 	public function to_json() {
@@ -34,8 +35,6 @@ class ButterBean_Control_Tinymce extends ButterBean_Control {
 	 * Sets the new id attribute, as it's required for TinyMCE to function properly.
 	 * Sets new class .tinymce for easier js initialization.
 	 *
-	 * @since  1.0.0
-	 * @access public
 	 * @return array
 	 */
 	public function get_attr() {
