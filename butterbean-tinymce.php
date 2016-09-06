@@ -48,19 +48,15 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 		 * Registers managers, sections, controls, and settings.
 		 *
 		 * @param  ButterBean $butterbean Instance of the `ButterBean` object.
-		 * @param  string $post_type
+		 * @param  string $post_type This plugins enables for all CPTs
 		 */
 		public function register( $butterbean, $post_type ) {
-			if ( 'page' !== $post_type && 'post' !== $post_type ) {
-				return;
-			}
-
 			/** @var $manager ButterBean_Manager */
 			$butterbean->register_manager(
 				'butterbean_tinymce_manager',
 				array(
 					'label'     => 'ButterBean TinyMCE',
-					'post_type' => 'post',
+					'post_type' => $post_type,
 					'context'   => 'normal',
 					'priority'  => 'high'
 				)
@@ -78,7 +74,7 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 				'section_1',
 				array(
 					'label' => '1 TinyMCE Editor',
-					'icon'  => 'dashicons-admin-generic'
+					'icon'  => 'dashicons-edit'
 				)
 			);
 			$manager->register_control(
@@ -100,7 +96,7 @@ if ( ! class_exists( 'ButterBean_TinyMCE_Example' ) ) {
 				'section_2',
 				array(
 					'label' => '2 TinyMCE Editors',
-					'icon'  => 'dashicons-admin-generic'
+					'icon'  => 'dashicons-edit'
 				)
 			);
 			$manager->register_control(
